@@ -37,9 +37,9 @@ hs_err_pid*
 
 # User-specific stuff:
 .idea/
+*.iml
 
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
+# Mongo Explorer plugin
 
 ## File-based project format:
 *.iws
