@@ -24,12 +24,17 @@ class HomeUI : JPanel() {
     private fun bottomUI(): JComponent {
         val ui = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
 
-        ui.add(JButton("Agregar variable").apply {
+        ui.add(JButton("Add variable").apply {
             addActionListener {
                 navigation.navigateToAddVariable()
             }
         })
-        ui.add(JButton("Configurar rangos").apply {
+        ui.add(JButton("Set outputs").apply {
+            addActionListener {
+                navigation.navigateToOutput()
+            }
+        })
+        ui.add(JButton("Set ranges").apply {
             addActionListener {
                 navigation.navigateToRange()
             }
