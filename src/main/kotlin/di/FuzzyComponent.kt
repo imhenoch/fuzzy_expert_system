@@ -3,6 +3,7 @@ package di
 import dagger.Component
 import ui.ParentWindow
 import ui.home.HomeUI
+import ui.outputs.AddOutputUI
 import ui.outputs.OutputsUI
 import ui.range.RangeUI
 import ui.variables.VariablesUI
@@ -19,6 +20,8 @@ interface FuzzyComponent {
     fun injectVariablesUI(variablesUI: VariablesUI)
 
     fun injectOutputsUI(outputsUI: OutputsUI)
+
+    fun injectAddOutputUI(addOutputUI: AddOutputUI)
 
     fun injectRangeUI(rangeUI: RangeUI)
 }
