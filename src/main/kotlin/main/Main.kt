@@ -1,8 +1,7 @@
 package main
 
-import di.DaggerFuzzyComponent
+import ui.ParentWindow
 
 fun main(args: Array<String>) {
-    val component = DaggerFuzzyComponent.builder().build()
-    component.parentWindow().isVisible = true
+    ParentWindow()
 }
