@@ -1,9 +1,11 @@
 package ui.home
 
 import ui.common.Navigation
+import java.awt.BorderLayout
+import java.awt.FlowLayout
 import javax.inject.Inject
 import javax.swing.JButton
-import javax.swing.JLabel
+import javax.swing.JComponent
 import javax.swing.JPanel
 
 class HomeUI : JPanel() {
@@ -15,9 +17,28 @@ class HomeUI : JPanel() {
     }
 
     private fun setUI() {
-        add(JLabel("HOME").apply {
-            horizontalAlignment = JButton.CENTER
-            verticalAlignment = JButton.CENTER
+        layout = BorderLayout()
+        add(bottomUI(), BorderLayout.SOUTH)
+    }
+
+    private fun bottomUI(): JComponent {
+        val ui = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
+
+        ui.add(JButton("Agregar variable").apply {
+            addActionListener {
+                navigation.navigateToAddVariable()
+            }
         })
+        ui.add(JButton("Configurar rangos").apply {
+            addActionListener {
+                navigation.navigateToRange()
+            }
+        })
+        ui.add(JButton(":)").apply {
+            addActionListener {
+                navigation.navigateToInference()
+            }
+        })
+        return ui
     }
 }

@@ -13,4 +13,16 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
         parentWindow.contentPane.add(homeUI)
         SwingUtilities.updateComponentTreeUI(parentWindow)
     }
+
+    fun navigateToAddVariable() {
+        println("Add variable")
+    }
+
+    fun navigateToRange() {
+        println("Configure range")
+    }
+
+    fun navigateToInference() {
+        println(":)")
+    }
 }
