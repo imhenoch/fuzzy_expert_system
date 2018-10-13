@@ -7,7 +7,7 @@ class ParentWindow : JFrame() {
     init {
         title = "Fuzzy expert system"
         size = Dimension(400, 400)
+        setLocationRelativeTo(null)
         defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        isVisible = true
     }
 }
