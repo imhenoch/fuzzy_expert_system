@@ -28,20 +28,15 @@ class OutputsUI : JPanel(), UIContainer, UIForm {
     }
 
     override fun saveData() {
-        println("Saving outputs...")
+        println("Saving output...")
     }
 
     private fun bottomUI(): JComponent {
         val ui = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
 
-        ui.add(JButton("Cancel").apply {
+        ui.add(JButton("Back").apply {
             addActionListener {
                 navigation.navigateToHome()
-            }
-        })
-        ui.add(JButton("Save outputs").apply {
-            addActionListener {
-                println("Save outputs")
             }
         })
         return ui

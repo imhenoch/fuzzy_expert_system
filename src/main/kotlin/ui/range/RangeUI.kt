@@ -28,20 +28,15 @@ class RangeUI : JPanel(), UIContainer, UIForm {
     }
 
     override fun saveData() {
-        println("Saving ranges...")
+        println("Saving range...")
     }
 
     private fun bottomUI(): JComponent {
         val ui = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
 
-        ui.add(JButton("Cancel").apply {
+        ui.add(JButton("Back").apply {
             addActionListener {
                 navigation.navigateToHome()
-            }
-        })
-        ui.add(JButton("Save range").apply {
-            addActionListener {
-                println("Save range")
             }
         })
         return ui

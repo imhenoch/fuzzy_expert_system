@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder
 class VariablesUI : JPanel(), UIForm {
     @Inject
     lateinit var navigation: Navigation
-    val variableName by lazy { UIInput("Variable name") }
+    private val variableName by lazy { UIInput("Variable name") }
 
     init {
         setupUI()
@@ -51,7 +51,7 @@ class VariablesUI : JPanel(), UIForm {
         })
         ui.add(JButton("Save variable").apply {
             addActionListener {
-                println("Save variable")
+                saveData()
             }
         })
 
