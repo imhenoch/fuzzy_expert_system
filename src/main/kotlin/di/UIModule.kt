@@ -3,9 +3,11 @@ package di
 import dagger.Module
 import dagger.Provides
 import ui.ParentWindow
+import ui.common.Navigation
 
 @Module
-class UIModule {
+class UIModule(private val parentWindow: ParentWindow) {
     @Provides
-    fun provideParentWindow() = ParentWindow()
+    @UIScope
+    fun providesNavigation() = Navigation(parentWindow)
 }
