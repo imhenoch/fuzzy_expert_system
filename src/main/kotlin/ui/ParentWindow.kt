@@ -23,7 +23,7 @@ class ParentWindow : JFrame() {
 
     private fun setUIProperties() {
         title = "Fuzzy expert system"
-        size = Dimension(400, 400)
+        size = Dimension(600, 400)
         setLocationRelativeTo(null)
     }
 

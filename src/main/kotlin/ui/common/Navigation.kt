@@ -2,24 +2,46 @@ package ui.common
 
 import ui.ParentWindow
 import ui.home.HomeUI
+import ui.outputs.OutputsUI
+import ui.range.RangeUI
+import ui.variables.VariablesUI
 import javax.inject.Inject
+import javax.swing.JComponent
 import javax.swing.SwingUtilities
 
+typealias ComponentFunction = (JComponent) -> Unit
+
 class Navigation @Inject constructor(val parentWindow: ParentWindow) {
-    fun navigateToHome() {
-        val homeUI = HomeUI()
+    private val homeUI by lazy { HomeUI() }
+    private val variablesUI by lazy { VariablesUI() }
+    private val outputsUI by lazy { OutputsUI() }
+    private val rangeUI by lazy { RangeUI() }
+
+    fun setupUI(component: JComponent, inject: ComponentFunction) {
         parentWindow.contentPane.removeAll()
-        parentWindow.fuzzyComponent.injectHomeUI(homeUI)
-        parentWindow.contentPane.add(homeUI)
+        inject(component)
+        parentWindow.add(component)
         SwingUtilities.updateComponentTreeUI(parentWindow)
     }
 
-    fun navigateToAddVariable() {
-        println("Add variable")
+    @Suppress("UNCHECKED_CAST")
+    fun navigateToHome() {
+        setupUI(homeUI, parentWindow.fuzzyComponent::injectHomeUI as ComponentFunction)
     }
 
+    @Suppress("UNCHECKED_CAST")
+    fun navigateToAddVariable() {
+        setupUI(variablesUI, parentWindow.fuzzyComponent::injectVariablesUI as ComponentFunction)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun navigateToOutput() {
+        setupUI(outputsUI, parentWindow.fuzzyComponent::injectOutputsUI as ComponentFunction)
+    }
+
+    @Suppress("UNCHECKED_CAST")
     fun navigateToRange() {
-        println("Configure range")
+        setupUI(rangeUI, parentWindow.fuzzyComponent::injectRangeUI as ComponentFunction)
     }
 
     fun navigateToInference() {
