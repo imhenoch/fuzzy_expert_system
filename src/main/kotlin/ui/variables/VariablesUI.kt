@@ -1,6 +1,7 @@
 package ui.variables
 
 import ui.common.Navigation
+import ui.common.UIForm
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.inject.Inject
@@ -8,17 +9,21 @@ import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class VariablesUI : JPanel() {
+class VariablesUI : JPanel(), UIForm {
     @Inject
     lateinit var navigation: Navigation
 
     init {
-        setUI()
+        setupUI()
     }
 
-    private fun setUI() {
+    private fun setupUI() {
         layout = BorderLayout()
         add(bottomUI(), BorderLayout.SOUTH)
+    }
+
+    override fun saveData() {
+        println("Saving variable...")
     }
 
     private fun bottomUI(): JComponent {

@@ -1,6 +1,7 @@
 package ui.home
 
 import ui.common.Navigation
+import ui.common.UIContainer
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.inject.Inject
@@ -8,17 +9,21 @@ import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class HomeUI : JPanel() {
+class HomeUI : JPanel(), UIContainer {
     @Inject
     lateinit var navigation: Navigation
 
     init {
-        setUI()
+        setupUI()
     }
 
-    private fun setUI() {
+    private fun setupUI() {
         layout = BorderLayout()
         add(bottomUI(), BorderLayout.SOUTH)
+    }
+
+    override fun fetchData() {
+        println("Fetching variables...")
     }
 
     private fun bottomUI(): JComponent {
