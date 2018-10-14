@@ -32,6 +32,7 @@ class HomeUI : JPanel(), UIContainer {
         ui.add(JButton("Add variable").apply {
             addActionListener {
                 navigation.navigateToAddVariable()
+
             }
         })
         ui.add(JButton("Set outputs").apply {

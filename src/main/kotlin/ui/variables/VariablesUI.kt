@@ -52,6 +52,7 @@ class VariablesUI : JPanel(), UIForm {
         ui.add(JButton("Save variable").apply {
             addActionListener {
                 saveData()
+                navigation.navigateToAddOutput()
             }
         })
 
