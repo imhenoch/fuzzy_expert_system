@@ -9,7 +9,7 @@ import java.awt.Dimension
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class ComplexChart : JPanel() {
+class ComplexChart(val title: String = "") : JPanel() {
     private lateinit var chartUI: XYChart
 
     init {
@@ -32,6 +32,7 @@ class ComplexChart : JPanel() {
             xAxisMax = 100.0
             yAxisMax = 1.0
         }
+        chartUI.title = title
         ui.add(XChartPanel<XYChart>(chartUI))
 
         return ui
