@@ -1,4 +1,0 @@
-package Files
-
-class MasterFile {
-}
