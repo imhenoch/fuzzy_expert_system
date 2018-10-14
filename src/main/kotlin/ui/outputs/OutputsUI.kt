@@ -33,7 +33,7 @@ class OutputsUI : JPanel(), UIContainer {
     override fun fetchData() {
         outputs = Output().fetch()
         outputs.forEach { output ->
-            chart.addSeries(output.data.variableName, output.data.points)
+            chart.addSeries(output.data.outputName, output.data.points)
         }
         SwingUtilities.updateComponentTreeUI(this)
     }

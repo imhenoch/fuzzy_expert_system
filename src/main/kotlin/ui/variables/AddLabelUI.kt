@@ -3,7 +3,7 @@ package ui.variables
 import ui.common.Navigation
 import ui.common.UIForm
 import ui.common.UIInput
-import ui.common.chart.ComplexChart
+import ui.common.chart.SimpleChart
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.inject.Inject
@@ -13,11 +13,11 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.border.EmptyBorder
 
-class VariablesUI : JPanel(), UIForm {
+class AddLabelUI : JPanel(), UIForm {
     @Inject
     lateinit var navigation: Navigation
-    private val chart by lazy { ComplexChart() }
-    private val variableName by lazy { UIInput("Variable name") }
+    private val chart by lazy { SimpleChart() }
+    private val labelName by lazy { UIInput("Label name") }
 
     init {
         setupUI()
@@ -25,19 +25,19 @@ class VariablesUI : JPanel(), UIForm {
 
     private fun setupUI() {
         layout = BorderLayout()
-        add(topUI(), BorderLayout.NORTH)
-        add(centerUI(), BorderLayout.CENTER)
         add(bottomUI(), BorderLayout.SOUTH)
+        add(centerUI(), BorderLayout.CENTER)
+        add(topUI(), BorderLayout.NORTH)
     }
 
     override fun saveData() {
-        println("Saving variable...")
+        println("Saving data...")
     }
 
     private fun topUI(): JComponent {
         val ui = Box.createHorizontalBox()
 
-        ui.add(variableName)
+        ui.add(labelName)
 
         return ui.apply {
             border = EmptyBorder(10, 10, 10, 10)
@@ -57,22 +57,16 @@ class VariablesUI : JPanel(), UIForm {
     private fun bottomUI(): JComponent {
         val ui = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
 
-        ui.add(JButton("Cancel").apply {
+        ui.add(JButton("Back").apply {
             addActionListener {
-                navigation.navigateToHome()
+                navigation.navigateToAddVariable()
             }
         })
-        ui.add(JButton("Add label").apply {
-            addActionListener {
-                navigation.navigateToAddLabel()
-            }
-        })
-        ui.add(JButton("Save variable").apply {
+        ui.add(JButton("Save label").apply {
             addActionListener {
                 saveData()
             }
         })
-
         return ui
     }
 }

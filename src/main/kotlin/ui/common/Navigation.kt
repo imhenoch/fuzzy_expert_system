@@ -5,6 +5,7 @@ import ui.home.HomeUI
 import ui.outputs.AddOutputUI
 import ui.outputs.OutputsUI
 import ui.range.RangeUI
+import ui.variables.AddLabelUI
 import ui.variables.VariablesUI
 import javax.inject.Inject
 import javax.swing.JComponent
@@ -32,6 +33,12 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
     fun navigateToAddVariable() {
         val ui = VariablesUI()
         setupUI(ui, parentWindow.fuzzyComponent::injectVariablesUI as ComponentFunction)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun navigateToAddLabel() {
+        val ui = AddLabelUI()
+        setupUI(ui, parentWindow.fuzzyComponent::injectAddLabelUI as ComponentFunction)
     }
 
     @Suppress("UNCHECKED_CAST")

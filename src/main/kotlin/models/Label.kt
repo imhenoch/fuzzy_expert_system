@@ -1,5 +1,6 @@
 package models
 
- class Label {
-    var label:String=""
-}
+data class Label(
+        var labelName: String = "",
+        var points: ArrayList<Point> = ArrayList()
+)

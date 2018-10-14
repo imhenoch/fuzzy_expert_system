@@ -5,7 +5,7 @@ import files.DataSpecification
 import files.Register
 
 data class Output(
-        var variableName: String = "",
+        var outputName: String = "",
         var points: ArrayList<Point> = ArrayList()
 ) : BinaryObject("output") {
     fun fetch(): ArrayList<Register<Output>> {
@@ -29,7 +29,7 @@ data class Output(
 
     override fun dataSpecification(): List<DataSpecification> {
         val ds = ArrayList<DataSpecification>()
-        ds.add(DataSpecification(variableName, String::class, 50))
+        ds.add(DataSpecification(outputName, String::class, 50))
         for (i in 0..9) {
             if (i < points.size) {
                 ds.add(DataSpecification(points[i].x, Int::class))
