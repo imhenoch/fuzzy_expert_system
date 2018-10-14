@@ -1,5 +1,6 @@
 package ui.outputs
 
+import models.Variable
 import ui.common.Navigation
 import ui.common.UIForm
 import ui.common.UIInput
@@ -31,7 +32,8 @@ class AddOutputUI : JPanel(), UIForm {
     }
 
     override fun saveData() {
-        println("Saving output...")
+        val variable = Variable(outputName.text, chart.points)
+        println(variable)
     }
 
     private fun topUI(): JComponent {
