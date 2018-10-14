@@ -33,7 +33,7 @@ class AddOutputUI : JPanel(), UIForm {
 
     override fun saveData() {
         val variable = Variable(outputName.text, chart.points)
-        println(variable)
+        variable.commit()
     }
 
     private fun topUI(): JComponent {
