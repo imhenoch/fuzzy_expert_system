@@ -13,11 +13,14 @@ data class Output(
 
         val fileData = fetchAll()
         fileData.forEach { fd ->
-            val variableName = fd.data[0] as String
+            val variableName = (fd.data[0] as String).replace("*", "")
             val points = ArrayList<Point>()
             var counter = 1
-            while (counter < fd.data.size)
+            while (counter < fd.data.size) {
+                if (fd.data[counter] == -1)
+                    break
                 points.add(Point(fd.data[counter++] as Int, fd.data[counter++] as Int))
+            }
             outputs.add(Register(fd.id, fd.position, Output(variableName, points)))
         }
 

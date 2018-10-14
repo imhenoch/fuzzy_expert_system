@@ -20,6 +20,7 @@ abstract class BinaryObject(fileName: String) {
             ds.forEach { ds ->
                 fileData.data.add(rawData[++counter])
             }
+            counter++
         }
 
         return data
