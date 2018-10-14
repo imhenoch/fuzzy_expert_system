@@ -18,7 +18,7 @@ class AddOutputUI : JPanel(), UIForm {
     @Inject
     lateinit var navigation: Navigation
     private val chart by lazy { SimpleChart() }
-    private val outputName by lazy { UIInput("Output name,") }
+    private val outputName by lazy { UIInput("Output name") }
 
     init {
         setupUI()
@@ -32,8 +32,8 @@ class AddOutputUI : JPanel(), UIForm {
     }
 
     override fun saveData() {
-        val variable = Output(outputName.text, chart.points)
-        variable.init()
+        val output = Output(outputName.text, chart.points)
+        output.init()
         navigation.navigateToOutput()
     }
 
