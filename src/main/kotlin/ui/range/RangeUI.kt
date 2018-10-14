@@ -6,12 +6,11 @@ import ui.common.UIForm
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.inject.Inject
-import javax.swing.*
+import javax.swing.JButton
+import javax.swing.JComponent
+import javax.swing.JPanel
 
 class RangeUI : JPanel(), UIContainer, UIForm {
-    private val slider      = JSlider(0,100,50)
-    private val txtRange    = JTextField("50%")
-
     @Inject
     lateinit var navigation: Navigation
 
@@ -21,7 +20,7 @@ class RangeUI : JPanel(), UIContainer, UIForm {
 
     private fun setupUI() {
         layout = BorderLayout()
-        add(centralPanel(), BorderLayout.CENTER)
+        add(centerUI(), BorderLayout.CENTER)
         add(bottomUI(), BorderLayout.SOUTH)
     }
 
@@ -33,42 +32,26 @@ class RangeUI : JPanel(), UIContainer, UIForm {
         println("Saving range.....")
     }
 
-    private fun bottomUI(): JComponent {
-        val ui      = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
+    private fun centerUI(): JComponent {
+        val ui = JPanel()
 
-        ui.add(JButton("Get").apply {
-            addActionListener {
-                println(txtRange.text)
-            }
-        })
+        return ui
+    }
+
+    private fun bottomUI(): JComponent {
+        val ui = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
+
         ui.add(JButton("Back").apply {
             addActionListener {
                 navigation.navigateToHome()
             }
         })
+        ui.add(JButton("Save").apply {
+            addActionListener {
+                saveData()
+            }
+        })
 
         return ui
-    }
-
-    private fun centralPanel(): JComponent{
-        val centralPanel = JPanel(BorderLayout())
-
-        centralPanel.add(slider.apply {
-            majorTickSpacing    = 10
-            minorTickSpacing    = 1
-            paintTicks          = true
-            paintLabels         = true
-
-            addChangeListener{
-                txtRange.text = slider.value.toString() + "%"
-            }
-        }, BorderLayout.CENTER)
-
-        centralPanel.add(txtRange.apply {
-            txtRange.setBounds(20,20,20,20)
-            txtRange.isEditable = false
-        },BorderLayout.SOUTH)
-
-        return centralPanel
     }
 }
