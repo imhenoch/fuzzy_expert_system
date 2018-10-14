@@ -1,6 +1,9 @@
 package ui.variables
 
+import models.Label
+import models.Variable
 import ui.common.Navigation
+import ui.common.UIContainer
 import ui.common.UIForm
 import ui.common.UIInput
 import ui.common.chart.ComplexChart
@@ -13,7 +16,11 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.border.EmptyBorder
 
-class VariablesUI : JPanel(), UIForm {
+class VariablesUI : JPanel(), UIForm, UIContainer {
+    companion object {
+        val LABELS = ArrayList<Label>()
+    }
+
     @Inject
     lateinit var navigation: Navigation
     private val chart by lazy { ComplexChart() }
@@ -31,7 +38,16 @@ class VariablesUI : JPanel(), UIForm {
     }
 
     override fun saveData() {
-        println("Saving variable...")
+        val variable = Variable(variableName.text, LABELS)
+        variable.init()
+        LABELS.clear()
+        navigation.navigateToHome()
+    }
+
+    override fun fetchData() {
+        LABELS.forEach { l ->
+            chart.addSeries(l.labelName, l.points)
+        }
     }
 
     private fun topUI(): JComponent {

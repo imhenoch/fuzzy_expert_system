@@ -1,5 +1,6 @@
 package ui.variables
 
+import models.Label
 import ui.common.Navigation
 import ui.common.UIForm
 import ui.common.UIInput
@@ -31,7 +32,8 @@ class AddLabelUI : JPanel(), UIForm {
     }
 
     override fun saveData() {
-        println("Saving data...")
+        VariablesUI.LABELS.add(Label(labelName.text, chart.points))
+        navigation.navigateToAddVariable()
     }
 
     private fun topUI(): JComponent {
