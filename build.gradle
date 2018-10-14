@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     ext.kotlin_version = '1.2.71'
     ext.dagger_version = '2.17'
-    ext.chart_version = '1.5.0'
+    ext.xchart_version = '3.5.2'
 
     repositories {
         jcenter()
@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "org.jfree:jfreechart:$chart_version"
+    compile "org.knowm.xchart:xchart:$xchart_version"
     compile "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
