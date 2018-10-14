@@ -1,5 +1,7 @@
 package ui.outputs
 
+import files.Register
+import models.Output
 import ui.common.Navigation
 import ui.common.UIContainer
 import java.awt.BorderLayout
@@ -12,6 +14,7 @@ import javax.swing.JPanel
 class OutputsUI : JPanel(), UIContainer {
     @Inject
     lateinit var navigation: Navigation
+    private lateinit var outputs: ArrayList<Register<Output>>
 
     init {
         setupUI()
@@ -23,7 +26,7 @@ class OutputsUI : JPanel(), UIContainer {
     }
 
     override fun fetchData() {
-        println("Fetching outputs...")
+        outputs = Output().fetch()
     }
 
     private fun bottomUI(): JComponent {
