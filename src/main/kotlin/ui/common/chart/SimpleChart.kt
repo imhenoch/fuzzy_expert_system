@@ -18,7 +18,7 @@ class SimpleChart : JPanel() {
     private val xData = ArrayList<Double>()
     private val yData = ArrayList<Double>()
     val points = ArrayList<Point>()
-    private val CHART_TITLE = "Variable"
+    private val SERIES_LABEL = "Variable"
 
     init {
         setupUI()
@@ -65,9 +65,9 @@ class SimpleChart : JPanel() {
         if (points.size < 10)
             generatePointUI(pointsUI)
         if (points.size > 1)
-            chartUI.updateXYSeries(CHART_TITLE, xData, yData, null)
+            chartUI.updateXYSeries(SERIES_LABEL, xData, yData, null)
         else
-            chartUI.addSeries(CHART_TITLE, xData, yData)
+            chartUI.addSeries(SERIES_LABEL, xData, yData)
         SwingUtilities.updateComponentTreeUI(this)
     }
 }
