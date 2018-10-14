@@ -16,7 +16,6 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
     private val homeUI by lazy { HomeUI() }
     private val variablesUI by lazy { VariablesUI() }
     private val outputsUI by lazy { OutputsUI() }
-    private val addOutputsUI by lazy { AddOutputUI() }
     private val rangeUI by lazy { RangeUI() }
 
     fun setupUI(component: JComponent, inject: ComponentFunction) {
@@ -43,7 +42,8 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
 
     @Suppress("UNCHECKED_CAST")
     fun navigateToAddOutput() {
-        setupUI(addOutputsUI, parentWindow.fuzzyComponent::injectAddOutputUI as ComponentFunction)
+        val ui = AddOutputUI()
+        setupUI(ui, parentWindow.fuzzyComponent::injectAddOutputUI as ComponentFunction)
     }
 
     @Suppress("UNCHECKED_CAST")
