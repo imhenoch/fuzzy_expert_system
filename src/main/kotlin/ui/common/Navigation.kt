@@ -17,6 +17,8 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
         parentWindow.contentPane.removeAll()
         inject(component)
         parentWindow.add(component)
+        if (component is UIContainer)
+            component.fetchData()
         SwingUtilities.updateComponentTreeUI(parentWindow)
     }
 
@@ -36,7 +38,6 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
     fun navigateToOutput() {
         val ui = OutputsUI()
         setupUI(ui, parentWindow.fuzzyComponent::injectOutputsUI as ComponentFunction)
-        ui.fetchData()
     }
 
     @Suppress("UNCHECKED_CAST")
