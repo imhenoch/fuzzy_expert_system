@@ -1,5 +1,7 @@
 package ui.home
 
+import files.Register
+import models.Variable
 import ui.common.Navigation
 import ui.common.UIContainer
 import java.awt.BorderLayout
@@ -12,6 +14,7 @@ import javax.swing.JPanel
 class HomeUI : JPanel(), UIContainer {
     @Inject
     lateinit var navigation: Navigation
+    private lateinit var variables: ArrayList<Register<Variable>>
 
     init {
         setupUI()
@@ -23,7 +26,7 @@ class HomeUI : JPanel(), UIContainer {
     }
 
     override fun fetchData() {
-        println("Fetching variables...")
+        variables = Variable().fetch()
     }
 
     private fun bottomUI(): JComponent {
