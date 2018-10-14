@@ -12,7 +12,27 @@ data class Variable(
         val variables = ArrayList<Register<Variable>>()
 
         val fileData = fetchAll()
-        println(fileData)
+        fileData.forEach { fd ->
+            val variableName = (fd.data[0] as String).replace("*", "")
+            val labels = ArrayList<Label>()
+            var counter = 1
+            while (counter < fd.data.size) {
+                if ((fd.data[counter] as String)[0] == '*')
+                    break
+                else
+                    labels.add(Label((fd.data[counter] as String).replace("*", "")))
+                val points = ArrayList<Point>()
+                counter++
+                for (i in 0 until 10) {
+                    if (fd.data[counter] != -1)
+                        points.add(Point(fd.data[counter++] as Int, fd.data[counter++] as Int))
+                    else
+                        counter += 2
+                }
+                labels.last().points = points
+            }
+            variables.add(Register(fd.id, fd.position, Variable(variableName, labels)))
+        }
 
         return variables
     }

@@ -27,6 +27,7 @@ class HomeUI : JPanel(), UIContainer {
 
     override fun fetchData() {
         variables = Variable().fetch()
+        println(variables)
     }
 
     private fun bottomUI(): JComponent {
