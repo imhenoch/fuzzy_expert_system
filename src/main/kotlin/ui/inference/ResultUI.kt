@@ -2,6 +2,7 @@ package ui.inference
 
 import files.Register
 import fuzzy.generateFAM
+import models.Range
 import models.Variable
 import ui.common.Navigation
 import ui.common.UIContainer
@@ -16,6 +17,7 @@ class ResultUI : JPanel(), UIContainer {
     @Inject
     lateinit var navigation: Navigation
     private lateinit var variables: ArrayList<Register<Variable>>
+    private lateinit var ranges: ArrayList<Register<Range>>
 
     init {
         setupUI()
@@ -40,7 +42,8 @@ class ResultUI : JPanel(), UIContainer {
 
     override fun fetchData() {
         variables = Variable().fetch()
-        val fam = generateFAM(variables)
+        ranges = Range().fetch()
+        val fam = generateFAM(variables, ranges)
         println(fam)
     }
 }

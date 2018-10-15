@@ -2,9 +2,10 @@ package fuzzy
 
 import files.Register
 import models.FAMCell
+import models.Range
 import models.Variable
 
-fun generateFAM(variables: ArrayList<Register<Variable>>): ArrayList<FAMCell> {
+fun generateFAM(variables: ArrayList<Register<Variable>>, ranges: ArrayList<Register<Range>>): ArrayList<FAMCell> {
     val FAM = ArrayList<FAMCell>()
 
     val limiters = IntArray(variables.size) { i ->
@@ -17,7 +18,7 @@ fun generateFAM(variables: ArrayList<Register<Variable>>): ArrayList<FAMCell> {
             break
 
         val antecedents = IntArray(variables.size) { i -> counters[i] }
-        FAM.add(FAMCell(antecedents, 0))
+        FAM.add(FAMCell(antecedents, obtainOutput(ranges, antecedents)))
 
         incrementCounters(counters, limiters, counters.lastIndex)
     }
@@ -33,4 +34,17 @@ private fun incrementCounters(counters: IntArray, limiters: IntArray, index: Int
             incrementCounters(counters, limiters, index - 1)
         }
     }
+}
+
+private fun obtainOutput(ranges: ArrayList<Register<Range>>, antecedents: IntArray): Long {
+    var weight = 0
+    var output: Long = 0
+    antecedents.forEach { a -> weight += a + 1 }
+    for (i in ranges.size - 1 downTo 0) {
+        if (weight >= ranges[i].data!!.min) {
+            output = ranges[i].data!!.output.id
+            break
+        }
+    }
+    return output
 }
