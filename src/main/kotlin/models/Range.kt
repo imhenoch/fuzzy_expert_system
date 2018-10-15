@@ -13,11 +13,10 @@ data class Range(
         val ranges = ArrayList<Register<Range>>()
 
         val fileData = fetchAll()
-        var counter = 0
         fileData.forEach { fd ->
-            val min = fd.data[counter++] as Int
-            val max = fd.data[counter++] as Int
-            val output = Register<Output>(fd.data[counter++] as Long)
+            val min = fd.data[0] as Int
+            val max = fd.data[1] as Int
+            val output = Register<Output>(fd.data[2] as Long)
             ranges.add(Register(fd.id, fd.position, Range(min, max, output)))
         }
 
