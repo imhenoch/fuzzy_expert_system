@@ -1,6 +1,10 @@
-package ui.result
+package ui.inference
 
+import files.Register
+import fuzzy.generateFAM
+import models.Variable
 import ui.common.Navigation
+import ui.common.UIContainer
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.inject.Inject
@@ -8,9 +12,10 @@ import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class ResultUI : JPanel() {
+class ResultUI : JPanel(), UIContainer {
     @Inject
     lateinit var navigation: Navigation
+    private lateinit var variables: ArrayList<Register<Variable>>
 
     init {
         setupUI()
@@ -31,5 +36,11 @@ class ResultUI : JPanel() {
         })
 
         return ui
+    }
+
+    override fun fetchData() {
+        variables = Variable().fetch()
+        val fam = generateFAM(variables)
+        println(fam)
     }
 }
