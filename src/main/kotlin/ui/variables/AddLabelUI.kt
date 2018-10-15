@@ -6,7 +6,6 @@ import ui.common.UIForm
 import ui.common.UIInput
 import ui.common.chart.SimpleChart
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.FlowLayout
 import javax.inject.Inject
 import javax.swing.Box
@@ -59,17 +58,13 @@ class AddLabelUI : JPanel(), UIForm {
 
     private fun bottomUI(): JComponent {
         val ui = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
-        val btnBack=JButton("Back")
-        val btnLabel=JButton(" Save label")
-        btnBack.setBackground(Color.RED)
 
-        ui.add(btnBack.apply{
+        ui.add(JButton("Back").apply {
             addActionListener {
                 navigation.navigateToAddVariable()
             }
         })
-        btnLabel.setBackground(Color.GREEN)
-        ui.add(btnLabel.apply {
+        ui.add(JButton("Save label").apply {
             addActionListener {
                 saveData()
             }
