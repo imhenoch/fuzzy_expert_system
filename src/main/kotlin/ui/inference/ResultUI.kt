@@ -4,6 +4,7 @@ import files.Register
 import fuzzy.defuzzyficate
 import fuzzy.fuzzyficate
 import fuzzy.generateFAM
+import models.Output
 import models.Range
 import models.Variable
 import ui.common.Navigation
@@ -21,6 +22,7 @@ class ResultUI : JPanel(), UIContainer {
     lateinit var navigation: Navigation
     private lateinit var variables: ArrayList<Register<Variable>>
     private lateinit var ranges: ArrayList<Register<Range>>
+    private lateinit var outputs: ArrayList<Register<Output>>
 
     init {
         setupUI()
@@ -47,9 +49,10 @@ class ResultUI : JPanel(), UIContainer {
     override fun fetchData() {
         variables = Variable().fetch()
         ranges = Range().fetch()
+        outputs = Output().fetch()
         val answers = QuestionsUI.ANSWERS
         val fam = generateFAM(variables, ranges)
         val fuzzyficatedInputs = fuzzyficate(answers)
-        val outputs = defuzzyficate(fam, fuzzyficatedInputs)
+        val realOutputs = defuzzyficate(fam, fuzzyficatedInputs, outputs)
     }
 }

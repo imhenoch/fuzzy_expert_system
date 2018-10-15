@@ -1,11 +1,14 @@
 package fuzzy
 
+import files.Register
 import models.FAMCell
 import models.Output
 import models.Variable
 
-fun defuzzyficate(fam: ArrayList<FAMCell>, fuzzyficatedInputs: ArrayList<Variable>): ArrayList<Output> {
-    val outputs = ArrayList<Output>()
+fun defuzzyficate(
+        fam: ArrayList<FAMCell>, fuzzyficatedInputs: ArrayList<Variable>, outputs: ArrayList<Register<Output>>
+): ArrayList<Output> {
+    val realOutputs = ArrayList<Output>()
 
     fam.forEach { cell ->
         var min = 100.0
@@ -15,6 +18,16 @@ fun defuzzyficate(fam: ArrayList<FAMCell>, fuzzyficatedInputs: ArrayList<Variabl
         }
         cell.weight = min
     }
+    outputs.forEach { o ->
+        var max = 0.0
+        fam.filter { cell ->
+            cell.output == o.id
+        }.forEach { cell ->
+            if (cell.weight > max)
+                max = cell.weight
+        }
+        realOutputs.add(o.data!!.apply { weight = max })
+    }
 
-    return outputs
+    return realOutputs
 }
