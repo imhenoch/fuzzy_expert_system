@@ -4,6 +4,7 @@ import ui.ParentWindow
 import ui.home.HomeUI
 import ui.outputs.AddOutputUI
 import ui.outputs.OutputsUI
+import ui.questions.QuestionsUI
 import ui.range.RangeUI
 import ui.variables.AddLabelUI
 import ui.variables.VariablesUI
@@ -59,7 +60,9 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
         setupUI(ui, parentWindow.fuzzyComponent::injectRangeUI as ComponentFunction)
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun navigateToInference() {
-        println(":)")
+        val ui = QuestionsUI()
+        setupUI(ui, parentWindow.fuzzyComponent::injectQuestionsUI as ComponentFunction)
     }
 }
