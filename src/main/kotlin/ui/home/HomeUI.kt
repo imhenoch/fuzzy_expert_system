@@ -73,7 +73,7 @@ class HomeUI : JPanel(), UIContainer {
         })
         ui.add(JButton(":)").apply {
             addActionListener {
-                navigation.navigateToInference()
+                navigation.navigateToQuestions()
             }
         })
         return ui

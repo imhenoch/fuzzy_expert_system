@@ -10,6 +10,10 @@ import javax.swing.JPanel
 import javax.swing.SwingUtilities
 
 class QuestionsUI : JPanel(), UIContainer {
+    companion object {
+        val ANSWERS = ArrayList<Answer>()
+    }
+
     @Inject
     lateinit var navigation: Navigation
     private val variables by lazy { ArrayList<Variable>() }
@@ -28,7 +32,10 @@ class QuestionsUI : JPanel(), UIContainer {
         Variable().fetch().forEach { v ->
             variables.add(v.data!!)
         }
-        generateNewQuestion()
+        if (variables.isEmpty())
+            navigation.navigateToHome()
+        else
+            generateNewQuestion()
     }
 
     private fun generateNewQuestion() {
@@ -47,6 +54,7 @@ class QuestionsUI : JPanel(), UIContainer {
     }
 
     private fun finishQuestions() {
-        println("All questions were answered")
+        ANSWERS.addAll(answers)
+        navigation.navigateToResult()
     }
 }

@@ -7,6 +7,7 @@ import ui.outputs.AddOutputUI
 import ui.outputs.OutputsUI
 import ui.questions.QuestionsUI
 import ui.range.RangeUI
+import ui.result.ResultUI
 import ui.variables.AddLabelUI
 import ui.variables.VariablesUI
 
@@ -30,4 +31,6 @@ interface FuzzyComponent {
     fun injectRangeUI(rangeUI: RangeUI)
 
     fun injectQuestionsUI(questionsUI: QuestionsUI)
+
+    fun injectResultUI(resultUI: ResultUI)
 }

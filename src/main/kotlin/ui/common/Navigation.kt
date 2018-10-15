@@ -6,6 +6,7 @@ import ui.outputs.AddOutputUI
 import ui.outputs.OutputsUI
 import ui.questions.QuestionsUI
 import ui.range.RangeUI
+import ui.result.ResultUI
 import ui.variables.AddLabelUI
 import ui.variables.VariablesUI
 import javax.inject.Inject
@@ -61,8 +62,14 @@ class Navigation @Inject constructor(val parentWindow: ParentWindow) {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun navigateToInference() {
+    fun navigateToQuestions() {
         val ui = QuestionsUI()
         setupUI(ui, parentWindow.fuzzyComponent::injectQuestionsUI as ComponentFunction)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun navigateToResult() {
+        val ui = ResultUI()
+        setupUI(ui, parentWindow.fuzzyComponent::injectResultUI as ComponentFunction)
     }
 }
