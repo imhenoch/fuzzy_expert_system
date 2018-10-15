@@ -24,7 +24,7 @@ private fun fuzzyficate(answer: Answer): ArrayList<Label> {
                 else if (answer.percentage == l.points[i + 1].x)
                     result.add(l.apply { weight = l.points[i + 1].y.toDouble() })
                 else if (answer.percentage >= l.points[i].x && answer.percentage <= l.points[i + 1].x) {
-                    val value = getMembership(answer.percentage, l.points[i], l.points[i + 1])
+                    val value = getMembershipWithX(answer.percentage, l.points[i], l.points[i + 1])
                     result.add(l.apply { weight = value })
                 }
             }
