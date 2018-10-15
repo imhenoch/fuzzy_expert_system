@@ -1,83 +1,52 @@
 package ui.questions
 
+import models.Answer
 import models.Variable
 import ui.common.Navigation
 import ui.common.UIContainer
-import ui.common.UIForm
 import java.awt.BorderLayout
-import java.awt.FlowLayout
 import javax.inject.Inject
-import javax.swing.*
+import javax.swing.JPanel
+import javax.swing.SwingUtilities
 
-class QuestionsUI : JPanel(), UIContainer, UIForm {
-
-    private var lblQuestion = JLabel()
-    private var slider      = JSlider()
-    private var txtRange    = JTextField("50%")
-
+class QuestionsUI : JPanel(), UIContainer {
     @Inject
     lateinit var navigation: Navigation
+    private val variables by lazy { ArrayList<Variable>() }
+    private val answers by lazy { ArrayList<Answer>() }
+    private var actualVariable = 0
 
     init {
         setupUI()
     }
 
-    private fun setupUI(){
+    private fun setupUI() {
         layout = BorderLayout()
-        add(centralPanel(), BorderLayout.CENTER)
-        add(bottomUI(), BorderLayout.SOUTH)
-    }
-
-    override fun saveData() {
-        println("Fetching ranges....")
     }
 
     override fun fetchData() {
-        println("Fetching ranges....")
+        Variable().fetch().forEach { v ->
+            variables.add(v.data!!)
+        }
+        generateNewQuestion()
     }
 
-    private fun bottomUI(): JComponent {
-        val ui      = JPanel(FlowLayout(FlowLayout.RIGHT, 5, 5))
-
-        ui.add(JButton("Back").apply {
-            addActionListener {
-                navigation.navigateToHome()
-            }
-        })
-
-        ui.add(JButton("Next").apply {
-            addActionListener{
-                println(Variable().fetch())
-            }
-        })
-
-        return ui
+    private fun generateNewQuestion() {
+        removeAll()
+        add(SimpleQuestionUI(variables[actualVariable], this::nextQuestion), BorderLayout.CENTER)
+        SwingUtilities.updateComponentTreeUI(this)
     }
 
-    private fun centralPanel(): JComponent{
-        val centralPanel = JPanel(BorderLayout())
-
-        centralPanel.add(lblQuestion.apply {
-
-        }, BorderLayout.NORTH)
-
-        centralPanel.add(slider.apply {
-            majorTickSpacing    = 10
-            minorTickSpacing    = 1
-            paintTicks          = true
-            paintLabels         = true
-
-            addChangeListener{
-                txtRange.text = slider.value.toString() + "%"
-            }
-        }, BorderLayout.CENTER)
-
-        centralPanel.add(txtRange.apply {
-            txtRange.setBounds(20,20,20,20)
-            txtRange.isEditable = false
-        },BorderLayout.SOUTH)
-
-        return centralPanel
+    private fun nextQuestion(percentage: Int, variable: Variable) {
+        answers.add(Answer(variable, percentage))
+        actualVariable++
+        if (actualVariable == variables.size)
+            finishQuestions()
+        else
+            generateNewQuestion()
     }
 
+    private fun finishQuestions() {
+        println("All questions were answered")
+    }
 }
