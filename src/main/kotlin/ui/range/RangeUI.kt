@@ -50,7 +50,7 @@ class RangeUI : JPanel(), UIContainer, UIForm {
     }
 
     override fun saveData() {
-        println("Saving range $range")
+        range.init()
     }
 
     private fun topUI(): JComponent {
@@ -76,9 +76,10 @@ class RangeUI : JPanel(), UIContainer, UIForm {
     }
 
     private fun addRange(min: Int, max: Int, output: Output) {
-        range = Range(min, max, output)
+        val register = outputs.find { o -> o.data.outputName == output.outputName }!!
+        range = Range(min, max, register)
         saveData()
-        ranges.add(Range(min, max, output))
+        ranges.add(Range(min, max, register))
         generateRangeUI(rangesUI)
         SwingUtilities.updateComponentTreeUI(this)
     }
