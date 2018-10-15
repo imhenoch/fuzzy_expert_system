@@ -39,7 +39,7 @@ class HomeUI : JPanel(), UIContainer {
 
         chartsUI.layout = GridLayout(rows, 3)
         variables.forEach { v ->
-            val chart = ComplexChart(v.data.variableName)
+            val chart = ComplexChart(v.data!!.variableName)
             v.data.labels.forEach { l ->
                 chart.addSeries(l.labelName, l.points)
             }

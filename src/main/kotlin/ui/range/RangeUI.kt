@@ -44,6 +44,14 @@ class RangeUI : JPanel(), UIContainer, UIForm {
         outputs = Output().fetch()
 
         info.text = "Range from 0 to ${variables.size}"
+        Range().fetch().forEach { r ->
+            val tmpOutputs = ArrayList<Output>()
+            outputs.forEach { o -> tmpOutputs.add(o.data!!) }
+            val simpleRange = SimpleRange(this::addRange, tmpOutputs)
+            simpleRange.deactivate()
+            simpleRange.setData(r.data!!, outputs.find { o -> o.id == r.data.output.id }!!.data!!)
+            rangesUI.add(simpleRange)
+        }
 
         generateRangeUI(rangesUI)
         SwingUtilities.updateComponentTreeUI(this)
@@ -71,12 +79,12 @@ class RangeUI : JPanel(), UIContainer, UIForm {
 
     private fun generateRangeUI(ui: JComponent) {
         val tmpOutputs = ArrayList<Output>()
-        outputs.forEach { o -> tmpOutputs.add(o.data) }
+        outputs.forEach { o -> tmpOutputs.add(o.data!!) }
         ui.add(SimpleRange(this::addRange, tmpOutputs))
     }
 
     private fun addRange(min: Int, max: Int, output: Output) {
-        val register = outputs.find { o -> o.data.outputName == output.outputName }!!
+        val register = outputs.find { o -> o.data?.outputName == output.outputName }!!
         range = Range(min, max, register)
         saveData()
         ranges.add(Range(min, max, register))

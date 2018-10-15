@@ -1,6 +1,7 @@
 package ui.range
 
 import models.Output
+import models.Range
 import ui.common.UIInput
 import java.awt.GridBagConstraints
 import java.awt.GridBagLayout
@@ -66,12 +67,22 @@ class SimpleRange(val function: RangeFucntion,
         btn.addActionListener {
             try {
                 function(min.text.toInt(), max.text.toInt(), outputsUI.selectedItem as Output)
-                min.isEnabled = false
-                max.isEnabled = false
-                outputsUI.isEnabled = false
-                remove(btn)
+                deactivate()
             } catch (ex: NumberFormatException) {
             }
         }
+    }
+
+    fun setData(range: Range, output: Output) {
+        min.text = range.min.toString()
+        max.text = range.max.toString()
+        outputsUI.selectedItem = output
+    }
+
+    fun deactivate() {
+        min.isEnabled = false
+        max.isEnabled = false
+        outputsUI.isEnabled = false
+        remove(btn)
     }
 }
