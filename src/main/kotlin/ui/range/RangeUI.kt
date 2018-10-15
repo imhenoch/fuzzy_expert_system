@@ -43,7 +43,11 @@ class RangeUI : JPanel(), UIContainer, UIForm {
         variables = Variable().fetch()
         outputs = Output().fetch()
 
-        info.text = "Range from 0 to ${variables.size}"
+        var max = 0
+        variables.forEach { v ->
+            max += v.data!!.labels.size
+        }
+        info.text = "Range from ${variables.size} to $max"
         Range().fetch().forEach { r ->
             val tmpOutputs = ArrayList<Output>()
             outputs.forEach { o -> tmpOutputs.add(o.data!!) }
