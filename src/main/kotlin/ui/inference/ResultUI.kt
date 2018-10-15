@@ -1,7 +1,8 @@
 package ui.inference
 
 import files.Register
-import fuzzy.fuzzyficateInput
+import fuzzy.defuzzyficate
+import fuzzy.fuzzyficate
 import fuzzy.generateFAM
 import models.Range
 import models.Variable
@@ -46,8 +47,9 @@ class ResultUI : JPanel(), UIContainer {
     override fun fetchData() {
         variables = Variable().fetch()
         ranges = Range().fetch()
-        val fam = generateFAM(variables, ranges)
         val answers = QuestionsUI.ANSWERS
-        val fuzzyficatedInputs = fuzzyficateInput(answers)
+        val fam = generateFAM(variables, ranges)
+        val fuzzyficatedInputs = fuzzyficate(answers)
+        val outputs = defuzzyficate(fam, fuzzyficatedInputs)
     }
 }

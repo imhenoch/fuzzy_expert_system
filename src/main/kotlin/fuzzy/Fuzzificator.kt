@@ -4,17 +4,17 @@ import models.Answer
 import models.Label
 import models.Variable
 
-fun fuzzyficateInput(answers: ArrayList<Answer>): ArrayList<Variable> {
+fun fuzzyficate(answers: ArrayList<Answer>): ArrayList<Variable> {
     val results = ArrayList<Variable>()
 
     answers.forEach { a ->
-        results.add(a.variable.apply { labels = fuzzyficateInput(a) })
+        results.add(a.variable.apply { labels = fuzzyficate(a) })
     }
 
     return results
 }
 
-private fun fuzzyficateInput(answer: Answer): ArrayList<Label> {
+private fun fuzzyficate(answer: Answer): ArrayList<Label> {
     val result = ArrayList<Label>()
     answer.variable.labels.forEach { l ->
         if (isOnRange(l, answer.percentage)) {

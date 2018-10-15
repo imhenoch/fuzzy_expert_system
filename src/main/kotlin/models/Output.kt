@@ -6,7 +6,8 @@ import files.Register
 
 data class Output(
         var outputName: String = "",
-        var points: ArrayList<Point> = ArrayList()
+        var points: ArrayList<Point> = ArrayList(),
+        var weight: Double = 0.0
 ) : BinaryObject("output") {
     fun fetch(): ArrayList<Register<Output>> {
         val outputs = ArrayList<Register<Output>>()
