@@ -1,11 +1,13 @@
 package ui.inference
 
 import files.Register
+import fuzzy.fuzzyficateInput
 import fuzzy.generateFAM
 import models.Range
 import models.Variable
 import ui.common.Navigation
 import ui.common.UIContainer
+import ui.questions.QuestionsUI
 import java.awt.BorderLayout
 import java.awt.FlowLayout
 import javax.inject.Inject
@@ -33,6 +35,7 @@ class ResultUI : JPanel(), UIContainer {
 
         ui.add(JButton("Back to home").apply {
             addActionListener {
+                QuestionsUI.ANSWERS.clear()
                 navigation.navigateToHome()
             }
         })
@@ -44,6 +47,7 @@ class ResultUI : JPanel(), UIContainer {
         variables = Variable().fetch()
         ranges = Range().fetch()
         val fam = generateFAM(variables, ranges)
-        println(fam)
+        val answers = QuestionsUI.ANSWERS
+        val fuzzyficatedInputs = fuzzyficateInput(answers)
     }
 }
