@@ -2,6 +2,7 @@ package ui.range
 
 import files.Register
 import models.Output
+import models.Range
 import models.Variable
 import ui.common.Navigation
 import ui.common.UIContainer
@@ -24,6 +25,8 @@ class RangeUI : JPanel(), UIContainer, UIForm {
     private lateinit var outputs: ArrayList<Register<Output>>
     private val rangesUI by lazy { Box.createVerticalBox() }
     private val info by lazy { JLabel() }
+    private val ranges = ArrayList<Range>()
+    private lateinit var range: Range
 
     init {
         setupUI()
@@ -41,6 +44,8 @@ class RangeUI : JPanel(), UIContainer, UIForm {
         outputs = Output().fetch()
 
         info.text = "Range from 0 to ${variables.size}"
+
+        generateRangeUI(rangesUI)
         SwingUtilities.updateComponentTreeUI(this)
     }
 
@@ -59,15 +64,22 @@ class RangeUI : JPanel(), UIContainer, UIForm {
     }
 
     private fun centerUI(): JComponent {
-        generateRangeUI(rangesUI)
-
         return rangesUI.apply {
-            border = EmptyBorder(10, 10, 10, 10)
+            border = EmptyBorder(30, 30, 30, 30)
         }
     }
 
     private fun generateRangeUI(ui: JComponent) {
-        ui.add(JLabel("Test"))
+        val tmpOutputs = ArrayList<Output>()
+        outputs.forEach { o -> tmpOutputs.add(o.data) }
+        ui.add(SimpleRange(this::addRange, tmpOutputs))
+    }
+
+    private fun addRange(min: Int, max: Int, output: Output) {
+        saveData()
+        ranges.add(Range(min, max, output))
+        generateRangeUI(rangesUI)
+        SwingUtilities.updateComponentTreeUI(this)
     }
 
     private fun bottomUI(): JComponent {
@@ -76,11 +88,6 @@ class RangeUI : JPanel(), UIContainer, UIForm {
         ui.add(JButton("Back").apply {
             addActionListener {
                 navigation.navigateToHome()
-            }
-        })
-        ui.add(JButton("Save").apply {
-            addActionListener {
-                saveData()
             }
         })
 

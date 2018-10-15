@@ -41,4 +41,6 @@ data class Output(
         }
         return ds
     }
+
+    override fun toString() = outputName
 }
